@@ -1,4 +1,4 @@
-const { res } = require('express')
+const { response } = require('express')
 const { request } = require('express')
 const express = require('express')
 const { v4: uuidv4 } = require('uuid')
@@ -36,6 +36,7 @@ function getBalance(statement) {
   return balance
 }
 
+//Method to create an account
 app.post('/account', (request, response) => {
   const { cpf, name } = request.body
 
@@ -56,12 +57,14 @@ app.post('/account', (request, response) => {
   console.log(customers)
 })
 
+//Method to get the statement of a customer
 app.get('/statement/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request
 
   return response.json(customer.statement)
 })
 
+//Method to make a deposit
 app.post('/deposit/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { description, amount } = request.body
   const { customer } = request
@@ -78,6 +81,7 @@ app.post('/deposit/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   return response.status(201).send()
 })
 
+//Method to make a withdraw
 app.post('/withdraw/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { amount } = request.body
   const { customer } = request
@@ -99,17 +103,20 @@ app.post('/withdraw/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   return response.status(201).send()
 })
 
+//Method to get the statement by date
 app.get('/statement/:cpf/date', verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request
   const { date } = request.query
 
   const dateFormat = new Date(date + " 00:00")
 
-  const statement = customer.statement.filter((statement) => statement.created_at.toDateString() === new Date(dateFormat).toDateString())
+  const statement = customer.statement.filter((statement) => statement.created_at.toDateString() ===
+  new Date(dateFormat).toDateString())
 
   return response.json(statement)
 })
 
+//Method to update an account
 app.patch('/account/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { name } = request.body
   const { customer } = request
@@ -119,12 +126,14 @@ app.patch('/account/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   return response.status(201).send()
 })
 
+//Method to get customer account data
 app.get('/account/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request
 
   return response.json(customer)
 })
 
+//Method to delete a customer
 app.delete('/account/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request
 
@@ -134,6 +143,7 @@ app.delete('/account/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   return response.status(200).json(customers)
 })
 
+//Method to get the balance of a customer
 app.get('/balance/:cpf', verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request
 
@@ -141,4 +151,5 @@ app.get('/balance/:cpf', verifyIfExistsAccountCPF, (request, response) => {
 
   return response.json(balance)
 })
+
 app.listen(3333)
