@@ -9,8 +9,8 @@
   - [x] Must be possible make a deposit
   - [x] Must be possible make a withdrawal
   - [x] Must be possible to fetch a customer's bank statement by date
-  - [] Must be possible update customer account data
-  - [] Must be possible get customer account data
+  - [x] Must be possible update customer account data
+  - [x] Must be possible get customer account data
   - [] Must be possible delete an account
 
   ### Business Rules
