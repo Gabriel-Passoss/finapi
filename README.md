@@ -19,5 +19,5 @@
   - [x] Must not be possible deposit into a non-existing account
   - [x] Must not be possible fetch statement from a non-existing account
   - [x] Must not be possible withdraw from a non-existing account
-  - [] Must not be possible delete a non-existing account
+  - [x] Must not be possible delete a non-existing account
   - [] Must not be possible make a withdrawal when the balance is insufficient
